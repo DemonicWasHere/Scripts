@@ -3147,7 +3147,15 @@ Converted["_Button9"].Position = UDim2.new(0.231481478, 0, 0, 0)
 Converted["_Button9"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Button9"].Name = "Button"
 Converted["_Button9"].Parent = Converted["_Misc1"]
-Converted["_Button9"].MouseButton1Down:Connect()
+Converted["_Button9"].MouseButton1Down:Connect(function()
+    assert(firesignal, "Your exploit does not support firesignal.")
+    local UserInputService = game:GetService("UserInputService")
+    local RunService = game:GetService("RunService")
+    UserInputService.WindowFocusReleased:Connect(function()
+        RunService.Stepped:Wait()
+        pcall(firesignal, UserInputService.WindowFocused)
+    end)    
+end)
 
 Converted["_UICorner74"].Parent = Converted["_Button9"]
 
