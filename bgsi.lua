@@ -1,5 +1,3 @@
-if _G.Key ~= "Obamatron" then return end
-
 local RS = game:GetService("ReplicatedStorage")
 local HS = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
