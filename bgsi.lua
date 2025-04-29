@@ -8,317 +8,327 @@ local HumRoot = Plr.Character.HumanoidRootPart
 _G.Settings = {}
 
 local function State(Setting)
-    return _G.Settings[Setting]
+	return _G.Settings[Setting]
 end
 
 local function Tween(Target)
-    TweenService:Create(
-        HumRoot,
-        TweenInfo.new((HumRoot.Position - Target.Position).Magnitude / 300, Enum.EasingStyle.Linear),
-        {CFrame = Target.CFrame}
-    ):Play()
+	TweenService:Create(
+		HumRoot,
+		TweenInfo.new((HumRoot.Position - Target.Position).Magnitude / 300, Enum.EasingStyle.Linear),
+		{CFrame = Target.CFrame}
+	):Play()
 end
 
 local function CodenameToRegularName(Name)
-    Name = Name:split("-")
-    local NewName = ""
-    for i, v in pairs(Name) do
-        NewName = NewName .. v:sub(1, 1):upper() .. v:sub(2) .. " "
-    end
-    return NewName:sub(1, NewName:len() - 1)
+	Name = Name:split("-")
+	local NewName = ""
+	for i, v in pairs(Name) do
+		NewName = NewName .. v:sub(1, 1):upper() .. v:sub(2) .. " "
+	end
+	return NewName:sub(1, NewName:len() - 1)
 end
 
 function SendMsg(webhook, pet)
-    request(
-        {
-            Url = url,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = game:GetService("HttpService"):JSONEncode(
-                {
-                    content = "@everyone",
-                    embeds = {
-                        {
-                            title = Plr.Name .. " hatched a rare pet!",
-                            color = 5814783,
-                            fields = {
-                                {
-                                    name = "Pet",
-                                    value = pet,
-                                    inline = true
-                                },
-                                {
-                                    name = "Rarity",
-                                    value = tostring(_G.Pets[pet].Rarity),
-                                    inline = true
-                                },
-                                {
-                                    name = "Chance",
-                                    value = tostring(_G.Pets[pet].Chance),
-                                    inline = true
-                                },
-                                {
-                                    name = "Egg",
-                                    value = tostring(_G.Pets[pet].Egg),
-                                    inline = true
-                                }
-                            },
-                            footer = {
-                                text = "This Webhook Was Created By Obama (@definitely.obama)"
-                            }
-                        }
-                    },
-                    attachments = {}
-                }
-            )
-        }
-    )
+	request(
+		{
+			Url = url,
+			Method = "POST",
+			Headers = {
+				["Content-Type"] = "application/json"
+			},
+			Body = game:GetService("HttpService"):JSONEncode(
+				{
+					content = "@everyone",
+					embeds = {
+						{
+							title = Plr.Name .. " hatched a rare pet!",
+							color = 5814783,
+							fields = {
+								{
+									name = "Pet",
+									value = pet,
+									inline = true
+								},
+								{
+									name = "Rarity",
+									value = tostring(_G.Pets[pet].Rarity),
+									inline = true
+								},
+								{
+									name = "Chance",
+									value = tostring(_G.Pets[pet].Chance),
+									inline = true
+								},
+								{
+									name = "Egg",
+									value = tostring(_G.Pets[pet].Egg),
+									inline = true
+								}
+							},
+							footer = {
+								text = "This Webhook Was Created By Obama (@definitely.obama)"
+							}
+						}
+					},
+					attachments = {}
+				}
+			)
+		}
+	)
 end
 
 local Network = _G.Network
 local DataModule = _G.LocalData
 
 local Converted = {
-    ["_ScreenGui"] = Instance.new("ScreenGui"),
-    ["_MainFrame"] = Instance.new("Frame"),
-    ["_UICorner"] = Instance.new("UICorner"),
-    ["_UIGradient"] = Instance.new("UIGradient"),
-    ["_Top"] = Instance.new("Frame"),
-    ["_UICorner1"] = Instance.new("UICorner"),
-    ["_Title"] = Instance.new("TextLabel"),
-    ["_Exit"] = Instance.new("TextButton"),
-    ["_Filler"] = Instance.new("Frame"),
-    ["_Tabs"] = Instance.new("ScrollingFrame"),
-    ["_UIListLayout"] = Instance.new("UIListLayout"),
-    ["_Filler1"] = Instance.new("Frame"),
-    ["_Main"] = Instance.new("TextButton"),
-    ["_UICorner2"] = Instance.new("UICorner"),
-    ["_Eggs"] = Instance.new("TextButton"),
-    ["_UICorner3"] = Instance.new("UICorner"),
-    ["_Rifts"] = Instance.new("TextButton"),
-    ["_UICorner4"] = Instance.new("UICorner"),
-    ["_Rewards"] = Instance.new("TextButton"),
-    ["_UICorner5"] = Instance.new("UICorner"),
-    ["_Items"] = Instance.new("TextButton"),
-    ["_UICorner6"] = Instance.new("UICorner"),
-    ["_Enchants"] = Instance.new("TextButton"),
-    ["_UICorner7"] = Instance.new("UICorner"),
-    ["_Potions"] = Instance.new("TextButton"),
-    ["_UICorner8"] = Instance.new("UICorner"),
-    ["_Shops"] = Instance.new("TextButton"),
-    ["_UICorner9"] = Instance.new("UICorner"),
-    ["_Misc"] = Instance.new("TextButton"),
-    ["_UICorner10"] = Instance.new("UICorner"),
-    ["_Filler2"] = Instance.new("Frame"),
-    ["_Frames"] = Instance.new("Frame"),
-    ["_Main1"] = Instance.new("ScrollingFrame"),
-    ["_Filler3"] = Instance.new("Frame"),
-    ["_UIListLayout1"] = Instance.new("UIListLayout"),
-    ["_Toggle"] = Instance.new("TextButton"),
-    ["_UICorner11"] = Instance.new("UICorner"),
-    ["_Title1"] = Instance.new("TextLabel"),
-    ["_Frame"] = Instance.new("Frame"),
-    ["_UICorner12"] = Instance.new("UICorner"),
-    ["_Toggle1"] = Instance.new("TextButton"),
-    ["_UICorner13"] = Instance.new("UICorner"),
-    ["_Title2"] = Instance.new("TextLabel"),
-    ["_Frame1"] = Instance.new("Frame"),
-    ["_UICorner14"] = Instance.new("UICorner"),
-    ["_Toggle2"] = Instance.new("TextButton"),
-    ["_UICorner15"] = Instance.new("UICorner"),
-    ["_Title3"] = Instance.new("TextLabel"),
-    ["_Frame2"] = Instance.new("Frame"),
-    ["_UICorner16"] = Instance.new("UICorner"),
-    ["_Eggs1"] = Instance.new("ScrollingFrame"),
-    ["_Filler4"] = Instance.new("Frame"),
-    ["_UIListLayout2"] = Instance.new("UIListLayout"),
-    ["_Toggle3"] = Instance.new("TextButton"),
-    ["_UICorner17"] = Instance.new("UICorner"),
-    ["_Title4"] = Instance.new("TextLabel"),
-    ["_Frame3"] = Instance.new("Frame"),
-    ["_UICorner18"] = Instance.new("UICorner"),
-    ["_Dropdown"] = Instance.new("TextButton"),
-    ["_UICorner19"] = Instance.new("UICorner"),
-    ["_Title5"] = Instance.new("TextLabel"),
-    ["_State"] = Instance.new("Frame"),
-    ["_UICorner20"] = Instance.new("UICorner"),
-    ["_Title6"] = Instance.new("TextLabel"),
-    ["_DropdownMenu"] = Instance.new("ScrollingFrame"),
-    ["_UICorner21"] = Instance.new("UICorner"),
-    ["_UIListLayout3"] = Instance.new("UIListLayout"),
-    ["_Button"] = Instance.new("TextButton"),
-    ["_UICorner22"] = Instance.new("UICorner"),
-    ["_Title7"] = Instance.new("TextLabel"),
-    ["_Button1"] = Instance.new("TextButton"),
-    ["_UICorner23"] = Instance.new("UICorner"),
-    ["_Title8"] = Instance.new("TextLabel"),
-    ["_Rifts1"] = Instance.new("ScrollingFrame"),
-    ["_Filler5"] = Instance.new("Frame"),
-    ["_UIListLayout4"] = Instance.new("UIListLayout"),
-    ["_Dropdown1"] = Instance.new("TextButton"),
-    ["_UICorner24"] = Instance.new("UICorner"),
-    ["_Title9"] = Instance.new("TextLabel"),
-    ["_State1"] = Instance.new("Frame"),
-    ["_UICorner25"] = Instance.new("UICorner"),
-    ["_Title10"] = Instance.new("TextLabel"),
-    ["_DropdownMenu1"] = Instance.new("ScrollingFrame"),
-    ["_UICorner26"] = Instance.new("UICorner"),
-    ["_UIListLayout5"] = Instance.new("UIListLayout"),
-    ["_Button2"] = Instance.new("TextButton"),
-    ["_UICorner27"] = Instance.new("UICorner"),
-    ["_Title11"] = Instance.new("TextLabel"),
-    ["_Button3"] = Instance.new("TextButton"),
-    ["_UICorner28"] = Instance.new("UICorner"),
-    ["_Title12"] = Instance.new("TextLabel"),
-    ["_Rewards1"] = Instance.new("ScrollingFrame"),
-    ["_Filler6"] = Instance.new("Frame"),
-    ["_UIListLayout6"] = Instance.new("UIListLayout"),
-    ["_Toggle4"] = Instance.new("TextButton"),
-    ["_UICorner29"] = Instance.new("UICorner"),
-    ["_Title13"] = Instance.new("TextLabel"),
-    ["_Frame4"] = Instance.new("Frame"),
-    ["_UICorner30"] = Instance.new("UICorner"),
-    ["_Toggle5"] = Instance.new("TextButton"),
-    ["_UICorner31"] = Instance.new("UICorner"),
-    ["_Title14"] = Instance.new("TextLabel"),
-    ["_Frame5"] = Instance.new("Frame"),
-    ["_UICorner32"] = Instance.new("UICorner"),
-    ["_Toggle6"] = Instance.new("TextButton"),
-    ["_UICorner33"] = Instance.new("UICorner"),
-    ["_Title15"] = Instance.new("TextLabel"),
-    ["_Frame6"] = Instance.new("Frame"),
-    ["_UICorner34"] = Instance.new("UICorner"),
-    ["_Toggle7"] = Instance.new("TextButton"),
-    ["_UICorner35"] = Instance.new("UICorner"),
-    ["_Title16"] = Instance.new("TextLabel"),
-    ["_Frame7"] = Instance.new("Frame"),
-    ["_UICorner36"] = Instance.new("UICorner"),
-    ["_Toggle8"] = Instance.new("TextButton"),
-    ["_UICorner37"] = Instance.new("UICorner"),
-    ["_Title17"] = Instance.new("TextLabel"),
-    ["_Frame8"] = Instance.new("Frame"),
-    ["_UICorner38"] = Instance.new("UICorner"),
-    ["_Items1"] = Instance.new("ScrollingFrame"),
-    ["_Filler7"] = Instance.new("Frame"),
-    ["_UIListLayout7"] = Instance.new("UIListLayout"),
-    ["_Toggle9"] = Instance.new("TextButton"),
-    ["_UICorner39"] = Instance.new("UICorner"),
-    ["_Title18"] = Instance.new("TextLabel"),
-    ["_Frame9"] = Instance.new("Frame"),
-    ["_UICorner40"] = Instance.new("UICorner"),
-    ["_Toggle10"] = Instance.new("TextButton"),
-    ["_UICorner41"] = Instance.new("UICorner"),
-    ["_Title19"] = Instance.new("TextLabel"),
-    ["_Frame10"] = Instance.new("Frame"),
-    ["_UICorner42"] = Instance.new("UICorner"),
-    ["_Toggle11"] = Instance.new("TextButton"),
-    ["_UICorner43"] = Instance.new("UICorner"),
-    ["_Title20"] = Instance.new("TextLabel"),
-    ["_Frame11"] = Instance.new("Frame"),
-    ["_UICorner44"] = Instance.new("UICorner"),
-    ["_Toggle12"] = Instance.new("TextButton"),
-    ["_UICorner45"] = Instance.new("UICorner"),
-    ["_Title21"] = Instance.new("TextLabel"),
-    ["_Frame12"] = Instance.new("Frame"),
-    ["_UICorner46"] = Instance.new("UICorner"),
-    ["_Enchants1"] = Instance.new("ScrollingFrame"),
-    ["_Filler8"] = Instance.new("Frame"),
-    ["_UIListLayout8"] = Instance.new("UIListLayout"),
-    ["_Toggle13"] = Instance.new("TextButton"),
-    ["_UICorner47"] = Instance.new("UICorner"),
-    ["_Title22"] = Instance.new("TextLabel"),
-    ["_Frame13"] = Instance.new("Frame"),
-    ["_UICorner48"] = Instance.new("UICorner"),
-    ["_Dropdown2"] = Instance.new("TextButton"),
-    ["_UICorner49"] = Instance.new("UICorner"),
-    ["_Title23"] = Instance.new("TextLabel"),
-    ["_State2"] = Instance.new("Frame"),
-    ["_UICorner50"] = Instance.new("UICorner"),
-    ["_Title24"] = Instance.new("TextLabel"),
-    ["_DropdownMenu2"] = Instance.new("ScrollingFrame"),
-    ["_UICorner51"] = Instance.new("UICorner"),
-    ["_UIListLayout9"] = Instance.new("UIListLayout"),
-    ["_Button4"] = Instance.new("TextButton"),
-    ["_UICorner52"] = Instance.new("UICorner"),
-    ["_Title25"] = Instance.new("TextLabel"),
-    ["_Button5"] = Instance.new("TextButton"),
-    ["_UICorner53"] = Instance.new("UICorner"),
-    ["_Title26"] = Instance.new("TextLabel"),
-    ["_Input"] = Instance.new("Frame"),
-    ["_UICorner54"] = Instance.new("UICorner"),
-    ["_Title27"] = Instance.new("TextLabel"),
-    ["_Frame14"] = Instance.new("Frame"),
-    ["_UICorner55"] = Instance.new("UICorner"),
-    ["_TextBox"] = Instance.new("TextBox"),
-    ["_Dropdown3"] = Instance.new("TextButton"),
-    ["_UICorner56"] = Instance.new("UICorner"),
-    ["_Title28"] = Instance.new("TextLabel"),
-    ["_State3"] = Instance.new("Frame"),
-    ["_UICorner57"] = Instance.new("UICorner"),
-    ["_Title29"] = Instance.new("TextLabel"),
-    ["_DropdownMenu3"] = Instance.new("ScrollingFrame"),
-    ["_UICorner58"] = Instance.new("UICorner"),
-    ["_UIListLayout10"] = Instance.new("UIListLayout"),
-    ["_Button6"] = Instance.new("TextButton"),
-    ["_UICorner59"] = Instance.new("UICorner"),
-    ["_Title30"] = Instance.new("TextLabel"),
-    ["_Potions1"] = Instance.new("ScrollingFrame"),
-    ["_Filler9"] = Instance.new("Frame"),
-    ["_UIListLayout11"] = Instance.new("UIListLayout"),
-    ["_Toggle14"] = Instance.new("TextButton"),
-    ["_UICorner60"] = Instance.new("UICorner"),
-    ["_Title31"] = Instance.new("TextLabel"),
-    ["_Frame15"] = Instance.new("Frame"),
-    ["_UICorner61"] = Instance.new("UICorner"),
-    ["_Shops1"] = Instance.new("ScrollingFrame"),
-    ["_Filler10"] = Instance.new("Frame"),
-    ["_UIListLayout12"] = Instance.new("UIListLayout"),
-    ["_Toggle15"] = Instance.new("TextButton"),
-    ["_UICorner62"] = Instance.new("UICorner"),
-    ["_Title32"] = Instance.new("TextLabel"),
-    ["_Frame16"] = Instance.new("Frame"),
-    ["_UICorner63"] = Instance.new("UICorner"),
-    ["_Toggle16"] = Instance.new("TextButton"),
-    ["_UICorner64"] = Instance.new("UICorner"),
-    ["_Title33"] = Instance.new("TextLabel"),
-    ["_Frame17"] = Instance.new("Frame"),
-    ["_UICorner65"] = Instance.new("UICorner"),
-    ["_Misc1"] = Instance.new("ScrollingFrame"),
-    ["_Filler11"] = Instance.new("Frame"),
-    ["_UIListLayout13"] = Instance.new("UIListLayout"),
-    ["_Toggle17"] = Instance.new("TextButton"),
-    ["_UICorner66"] = Instance.new("UICorner"),
-    ["_Title34"] = Instance.new("TextLabel"),
-    ["_Frame18"] = Instance.new("Frame"),
-    ["_UICorner67"] = Instance.new("UICorner"),
-    ["_Button7"] = Instance.new("TextButton"),
-    ["_UICorner68"] = Instance.new("UICorner"),
-    ["_Title35"] = Instance.new("TextLabel"),
-    ["_Toggle18"] = Instance.new("TextButton"),
-    ["_UICorner69"] = Instance.new("UICorner"),
-    ["_Title36"] = Instance.new("TextLabel"),
-    ["_Frame19"] = Instance.new("Frame"),
-    ["_UICorner70"] = Instance.new("UICorner"),
-    ["_Toggle19"] = Instance.new("TextButton"),
-    ["_UICorner71"] = Instance.new("UICorner"),
-    ["_Title37"] = Instance.new("TextLabel"),
-    ["_Frame20"] = Instance.new("Frame"),
-    ["_UICorner72"] = Instance.new("UICorner"),
-    ["_Button8"] = Instance.new("TextButton"),
-    ["_UICorner73"] = Instance.new("UICorner"),
-    ["_Title38"] = Instance.new("TextLabel"),
-    ["_Button9"] = Instance.new("TextButton"),
-    ["_UICorner74"] = Instance.new("UICorner"),
-    ["_Title39"] = Instance.new("TextLabel")
+	["_ScreenGui"] = Instance.new("ScreenGui"),
+	["_MainFrame"] = Instance.new("Frame"),
+	["_UICorner"] = Instance.new("UICorner"),
+	["_UIGradient"] = Instance.new("UIGradient"),
+	["_Top"] = Instance.new("Frame"),
+	["_UICorner1"] = Instance.new("UICorner"),
+	["_Title"] = Instance.new("TextLabel"),
+	["_Exit"] = Instance.new("TextButton"),
+	["_Filler"] = Instance.new("Frame"),
+	["_Tabs"] = Instance.new("ScrollingFrame"),
+	["_UIListLayout"] = Instance.new("UIListLayout"),
+	["_Filler1"] = Instance.new("Frame"),
+	["_Main"] = Instance.new("TextButton"),
+	["_UICorner2"] = Instance.new("UICorner"),
+	["_Eggs"] = Instance.new("TextButton"),
+	["_UICorner3"] = Instance.new("UICorner"),
+	["_Rifts"] = Instance.new("TextButton"),
+	["_UICorner4"] = Instance.new("UICorner"),
+	["_Rewards"] = Instance.new("TextButton"),
+	["_UICorner5"] = Instance.new("UICorner"),
+	["_Items"] = Instance.new("TextButton"),
+	["_UICorner6"] = Instance.new("UICorner"),
+	["_Enchants"] = Instance.new("TextButton"),
+	["_UICorner7"] = Instance.new("UICorner"),
+	["_Potions"] = Instance.new("TextButton"),
+	["_UICorner8"] = Instance.new("UICorner"),
+	["_Shops"] = Instance.new("TextButton"),
+	["_UICorner9"] = Instance.new("UICorner"),
+	["_Misc"] = Instance.new("TextButton"),
+	["_UICorner10"] = Instance.new("UICorner"),
+	["_Filler2"] = Instance.new("Frame"),
+	["_Frames"] = Instance.new("Frame"),
+	["_Main1"] = Instance.new("ScrollingFrame"),
+	["_Filler3"] = Instance.new("Frame"),
+	["_UIListLayout1"] = Instance.new("UIListLayout"),
+	["_Toggle"] = Instance.new("TextButton"),
+	["_UICorner11"] = Instance.new("UICorner"),
+	["_Title1"] = Instance.new("TextLabel"),
+	["_Frame"] = Instance.new("Frame"),
+	["_UICorner12"] = Instance.new("UICorner"),
+	["_Toggle1"] = Instance.new("TextButton"),
+	["_UICorner13"] = Instance.new("UICorner"),
+	["_Title2"] = Instance.new("TextLabel"),
+	["_Frame1"] = Instance.new("Frame"),
+	["_UICorner14"] = Instance.new("UICorner"),
+	["_Toggle2"] = Instance.new("TextButton"),
+	["_UICorner15"] = Instance.new("UICorner"),
+	["_Title3"] = Instance.new("TextLabel"),
+	["_Frame2"] = Instance.new("Frame"),
+	["_UICorner16"] = Instance.new("UICorner"),
+	["_Eggs1"] = Instance.new("ScrollingFrame"),
+	["_Filler4"] = Instance.new("Frame"),
+	["_UIListLayout2"] = Instance.new("UIListLayout"),
+	["_Toggle3"] = Instance.new("TextButton"),
+	["_UICorner17"] = Instance.new("UICorner"),
+	["_Title4"] = Instance.new("TextLabel"),
+	["_Frame3"] = Instance.new("Frame"),
+	["_UICorner18"] = Instance.new("UICorner"),
+	["_Dropdown"] = Instance.new("TextButton"),
+	["_UICorner19"] = Instance.new("UICorner"),
+	["_Title5"] = Instance.new("TextLabel"),
+	["_State"] = Instance.new("Frame"),
+	["_UICorner20"] = Instance.new("UICorner"),
+	["_Title6"] = Instance.new("TextLabel"),
+	["_DropdownMenu"] = Instance.new("ScrollingFrame"),
+	["_UICorner21"] = Instance.new("UICorner"),
+	["_UIListLayout3"] = Instance.new("UIListLayout"),
+	["_Button"] = Instance.new("TextButton"),
+	["_UICorner22"] = Instance.new("UICorner"),
+	["_Title7"] = Instance.new("TextLabel"),
+	["_Button1"] = Instance.new("TextButton"),
+	["_UICorner23"] = Instance.new("UICorner"),
+	["_Title8"] = Instance.new("TextLabel"),
+	["_Rifts1"] = Instance.new("ScrollingFrame"),
+	["_Filler5"] = Instance.new("Frame"),
+	["_UIListLayout4"] = Instance.new("UIListLayout"),
+	["_Dropdown1"] = Instance.new("TextButton"),
+	["_UICorner24"] = Instance.new("UICorner"),
+	["_Title9"] = Instance.new("TextLabel"),
+	["_State1"] = Instance.new("Frame"),
+	["_UICorner25"] = Instance.new("UICorner"),
+	["_Title10"] = Instance.new("TextLabel"),
+	["_DropdownMenu1"] = Instance.new("ScrollingFrame"),
+	["_UICorner26"] = Instance.new("UICorner"),
+	["_UIListLayout5"] = Instance.new("UIListLayout"),
+	["_Button2"] = Instance.new("TextButton"),
+	["_UICorner27"] = Instance.new("UICorner"),
+	["_Title11"] = Instance.new("TextLabel"),
+	["_Button3"] = Instance.new("TextButton"),
+	["_UICorner28"] = Instance.new("UICorner"),
+	["_Title12"] = Instance.new("TextLabel"),
+	["_Rewards1"] = Instance.new("ScrollingFrame"),
+	["_Filler6"] = Instance.new("Frame"),
+	["_UIListLayout6"] = Instance.new("UIListLayout"),
+	["_Toggle4"] = Instance.new("TextButton"),
+	["_UICorner29"] = Instance.new("UICorner"),
+	["_Title13"] = Instance.new("TextLabel"),
+	["_Frame4"] = Instance.new("Frame"),
+	["_UICorner30"] = Instance.new("UICorner"),
+	["_Toggle5"] = Instance.new("TextButton"),
+	["_UICorner31"] = Instance.new("UICorner"),
+	["_Title14"] = Instance.new("TextLabel"),
+	["_Frame5"] = Instance.new("Frame"),
+	["_UICorner32"] = Instance.new("UICorner"),
+	["_Toggle6"] = Instance.new("TextButton"),
+	["_UICorner33"] = Instance.new("UICorner"),
+	["_Title15"] = Instance.new("TextLabel"),
+	["_Frame6"] = Instance.new("Frame"),
+	["_UICorner34"] = Instance.new("UICorner"),
+	["_Toggle7"] = Instance.new("TextButton"),
+	["_UICorner35"] = Instance.new("UICorner"),
+	["_Title16"] = Instance.new("TextLabel"),
+	["_Frame7"] = Instance.new("Frame"),
+	["_UICorner36"] = Instance.new("UICorner"),
+	["_Toggle8"] = Instance.new("TextButton"),
+	["_UICorner37"] = Instance.new("UICorner"),
+	["_Title17"] = Instance.new("TextLabel"),
+	["_Frame8"] = Instance.new("Frame"),
+	["_UICorner38"] = Instance.new("UICorner"),
+	["_Items1"] = Instance.new("ScrollingFrame"),
+	["_Filler7"] = Instance.new("Frame"),
+	["_UIListLayout7"] = Instance.new("UIListLayout"),
+	["_Toggle9"] = Instance.new("TextButton"),
+	["_UICorner39"] = Instance.new("UICorner"),
+	["_Title18"] = Instance.new("TextLabel"),
+	["_Frame9"] = Instance.new("Frame"),
+	["_UICorner40"] = Instance.new("UICorner"),
+	["_Toggle10"] = Instance.new("TextButton"),
+	["_UICorner41"] = Instance.new("UICorner"),
+	["_Title19"] = Instance.new("TextLabel"),
+	["_Frame10"] = Instance.new("Frame"),
+	["_UICorner42"] = Instance.new("UICorner"),
+	["_Toggle11"] = Instance.new("TextButton"),
+	["_UICorner43"] = Instance.new("UICorner"),
+	["_Title20"] = Instance.new("TextLabel"),
+	["_Frame11"] = Instance.new("Frame"),
+	["_UICorner44"] = Instance.new("UICorner"),
+	["_Toggle12"] = Instance.new("TextButton"),
+	["_UICorner45"] = Instance.new("UICorner"),
+	["_Title21"] = Instance.new("TextLabel"),
+	["_Frame12"] = Instance.new("Frame"),
+	["_UICorner46"] = Instance.new("UICorner"),
+	["_Enchants1"] = Instance.new("ScrollingFrame"),
+	["_Filler8"] = Instance.new("Frame"),
+	["_UIListLayout8"] = Instance.new("UIListLayout"),
+	["_Toggle13"] = Instance.new("TextButton"),
+	["_UICorner47"] = Instance.new("UICorner"),
+	["_Title22"] = Instance.new("TextLabel"),
+	["_Frame13"] = Instance.new("Frame"),
+	["_UICorner48"] = Instance.new("UICorner"),
+	["_Dropdown2"] = Instance.new("TextButton"),
+	["_UICorner49"] = Instance.new("UICorner"),
+	["_Title23"] = Instance.new("TextLabel"),
+	["_State2"] = Instance.new("Frame"),
+	["_UICorner50"] = Instance.new("UICorner"),
+	["_Title24"] = Instance.new("TextLabel"),
+	["_DropdownMenu2"] = Instance.new("ScrollingFrame"),
+	["_UICorner51"] = Instance.new("UICorner"),
+	["_UIListLayout9"] = Instance.new("UIListLayout"),
+	["_Button4"] = Instance.new("TextButton"),
+	["_UICorner52"] = Instance.new("UICorner"),
+	["_Title25"] = Instance.new("TextLabel"),
+	["_Button5"] = Instance.new("TextButton"),
+	["_UICorner53"] = Instance.new("UICorner"),
+	["_Title26"] = Instance.new("TextLabel"),
+	["_Input"] = Instance.new("Frame"),
+	["_UICorner54"] = Instance.new("UICorner"),
+	["_Title27"] = Instance.new("TextLabel"),
+	["_Frame14"] = Instance.new("Frame"),
+	["_UICorner55"] = Instance.new("UICorner"),
+	["_TextBox"] = Instance.new("TextBox"),
+	["_Dropdown3"] = Instance.new("TextButton"),
+	["_UICorner56"] = Instance.new("UICorner"),
+	["_Title28"] = Instance.new("TextLabel"),
+	["_State3"] = Instance.new("Frame"),
+	["_UICorner57"] = Instance.new("UICorner"),
+	["_Title29"] = Instance.new("TextLabel"),
+	["_DropdownMenu3"] = Instance.new("ScrollingFrame"),
+	["_UICorner58"] = Instance.new("UICorner"),
+	["_UIListLayout10"] = Instance.new("UIListLayout"),
+	["_Button6"] = Instance.new("TextButton"),
+	["_UICorner59"] = Instance.new("UICorner"),
+	["_Title30"] = Instance.new("TextLabel"),
+	["_Potions1"] = Instance.new("ScrollingFrame"),
+	["_Filler9"] = Instance.new("Frame"),
+	["_UIListLayout11"] = Instance.new("UIListLayout"),
+	["_Toggle14"] = Instance.new("TextButton"),
+	["_UICorner60"] = Instance.new("UICorner"),
+	["_Title31"] = Instance.new("TextLabel"),
+	["_Frame15"] = Instance.new("Frame"),
+	["_UICorner61"] = Instance.new("UICorner"),
+	["_Shops1"] = Instance.new("ScrollingFrame"),
+	["_Filler10"] = Instance.new("Frame"),
+	["_UIListLayout12"] = Instance.new("UIListLayout"),
+	["_Toggle15"] = Instance.new("TextButton"),
+	["_UICorner62"] = Instance.new("UICorner"),
+	["_Title32"] = Instance.new("TextLabel"),
+	["_Frame16"] = Instance.new("Frame"),
+	["_UICorner63"] = Instance.new("UICorner"),
+	["_Toggle16"] = Instance.new("TextButton"),
+	["_UICorner64"] = Instance.new("UICorner"),
+	["_Title33"] = Instance.new("TextLabel"),
+	["_Frame17"] = Instance.new("Frame"),
+	["_UICorner65"] = Instance.new("UICorner"),
+	["_Misc1"] = Instance.new("ScrollingFrame"),
+	["_Filler11"] = Instance.new("Frame"),
+	["_UIListLayout13"] = Instance.new("UIListLayout"),
+	["_Toggle17"] = Instance.new("TextButton"),
+	["_UICorner66"] = Instance.new("UICorner"),
+	["_Title34"] = Instance.new("TextLabel"),
+	["_Frame18"] = Instance.new("Frame"),
+	["_UICorner67"] = Instance.new("UICorner"),
+	["_Button7"] = Instance.new("TextButton"),
+	["_UICorner68"] = Instance.new("UICorner"),
+	["_Title35"] = Instance.new("TextLabel"),
+	["_Toggle18"] = Instance.new("TextButton"),
+	["_UICorner69"] = Instance.new("UICorner"),
+	["_Title36"] = Instance.new("TextLabel"),
+	["_Frame19"] = Instance.new("Frame"),
+	["_UICorner70"] = Instance.new("UICorner"),
+	["_Toggle19"] = Instance.new("TextButton"),
+	["_UICorner71"] = Instance.new("UICorner"),
+	["_Title37"] = Instance.new("TextLabel"),
+	["_Frame20"] = Instance.new("Frame"),
+	["_UICorner72"] = Instance.new("UICorner"),
+	["_Button8"] = Instance.new("TextButton"),
+	["_UICorner73"] = Instance.new("UICorner"),
+	["_Title38"] = Instance.new("TextLabel"),
+	["_Button9"] = Instance.new("TextButton"),
+	["_UICorner74"] = Instance.new("UICorner"),
+	["_Title39"] = Instance.new("TextLabel"),
+	["_Premium"] = Instance.new("TextButton"),
+	["_Premium1"] = Instance.new("ScrollingFrame"),
+	["_Frame21"] = Instance.new("Frame"),
+	["_Title40"] = Instance.new("TextLabel"),
+	["_UICorner75"] = Instance.new("UICorner"),
+	["_UICorner76"] = Instance.new("UICorner"),
+	["_Filler12"] = Instance.new("Frame"),
+	["_UIListLayout14"] = Instance.new("UIListLayout"),
+	["_Toggle20"] = Instance.new("TextButton"),
+	["_UICorner77"] = Instance.new("UICorner"),
 }
 
 local function ShowFrame(FrameName)
-    for _, Frame in pairs(Converted["_Frames"]:GetChildren()) do
-        Frame.Visible = false
-    end
-    Converted["_Frames"]:FindFirstChild(FrameName).Visible = true
+	for _, Frame in pairs(Converted["_Frames"]:GetChildren()) do
+		Frame.Visible = false
+	end
+	Converted["_Frames"]:FindFirstChild(FrameName).Visible = true
 end
 
 -- Properties:
@@ -338,10 +348,10 @@ Converted["_UICorner"].CornerRadius = UDim.new(0, 15)
 Converted["_UICorner"].Parent = Converted["_MainFrame"]
 
 Converted["_UIGradient"].Color =
-    ColorSequence.new {
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(30.00000011175871, 30.00000011175871, 30.00000011175871)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(50.000000819563866, 50.000000819563866, 50.000000819563866))
-}
+	ColorSequence.new {
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(30.00000011175871, 30.00000011175871, 30.00000011175871)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(50.000000819563866, 50.000000819563866, 50.000000819563866))
+	}
 Converted["_UIGradient"].Rotation = -90
 Converted["_UIGradient"].Parent = Converted["_MainFrame"]
 
@@ -387,10 +397,10 @@ Converted["_Exit"].Size = UDim2.new(0.0826709047, 0, 1.01998448, 0)
 Converted["_Exit"].Name = "Exit"
 Converted["_Exit"].Parent = Converted["_Top"]
 Converted["_Exit"].MouseButton1Down:Connect(
-    function()
-        _G.Settings = {}
-        Converted["_ScreenGui"].Parent = nil
-    end
+	function()
+		_G.Settings = {}
+		Converted["_ScreenGui"].Parent = nil
+	end
 )
 
 Converted["_Filler"].BackgroundColor3 = Color3.fromRGB(25.000002309679985, 25.000002309679985, 25.000002309679985)
@@ -443,9 +453,9 @@ Converted["_Main"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Main"].Name = "Main"
 Converted["_Main"].Parent = Converted["_Tabs"]
 Converted["_Main"].MouseButton1Up:Connect(
-    function()
-        ShowFrame("Main")
-    end
+	function()
+		ShowFrame("Main")
+	end
 )
 
 Converted["_UICorner2"].Parent = Converted["_Main"]
@@ -463,9 +473,9 @@ Converted["_Eggs"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Eggs"].Name = "Eggs"
 Converted["_Eggs"].Parent = Converted["_Tabs"]
 Converted["_Eggs"].MouseButton1Down:Connect(
-    function()
-        ShowFrame("Eggs")
-    end
+	function()
+		ShowFrame("Eggs")
+	end
 )
 
 Converted["_UICorner3"].Parent = Converted["_Eggs"]
@@ -483,9 +493,9 @@ Converted["_Rifts"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Rifts"].Name = "Rifts"
 Converted["_Rifts"].Parent = Converted["_Tabs"]
 Converted["_Rifts"].MouseButton1Down:Connect(
-    function()
-        ShowFrame("Rifts")
-    end
+	function()
+		ShowFrame("Rifts")
+	end
 )
 
 Converted["_UICorner4"].Parent = Converted["_Rifts"]
@@ -503,9 +513,9 @@ Converted["_Rewards"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Rewards"].Name = "Rewards"
 Converted["_Rewards"].Parent = Converted["_Tabs"]
 Converted["_Rewards"].MouseButton1Down:Connect(
-    function()
-        ShowFrame("Rewards")
-    end
+	function()
+		ShowFrame("Rewards")
+	end
 )
 
 Converted["_UICorner5"].Parent = Converted["_Rewards"]
@@ -523,9 +533,9 @@ Converted["_Items"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Items"].Name = "Items"
 Converted["_Items"].Parent = Converted["_Tabs"]
 Converted["_Items"].MouseButton1Down:Connect(
-    function()
-        ShowFrame("Items")
-    end
+	function()
+		ShowFrame("Items")
+	end
 )
 
 Converted["_UICorner6"].Parent = Converted["_Items"]
@@ -543,9 +553,9 @@ Converted["_Enchants"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Enchants"].Name = "Enchants"
 Converted["_Enchants"].Parent = Converted["_Tabs"]
 Converted["_Enchants"].MouseButton1Down:Connect(
-    function()
-        ShowFrame("Enchants")
-    end
+	function()
+		ShowFrame("Enchants")
+	end
 )
 
 Converted["_UICorner7"].Parent = Converted["_Enchants"]
@@ -563,9 +573,9 @@ Converted["_Potions"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Potions"].Name = "Potions"
 Converted["_Potions"].Parent = Converted["_Tabs"]
 Converted["_Potions"].MouseButton1Down:Connect(
-    function()
-        ShowFrame("Potions")
-    end
+	function()
+		ShowFrame("Potions")
+	end
 )
 
 Converted["_UICorner8"].Parent = Converted["_Potions"]
@@ -583,9 +593,9 @@ Converted["_Shops"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Shops"].Name = "Shops"
 Converted["_Shops"].Parent = Converted["_Tabs"]
 Converted["_Shops"].MouseButton1Down:Connect(
-    function()
-        ShowFrame("Shops")
-    end
+	function()
+		ShowFrame("Shops")
+	end
 )
 
 Converted["_UICorner9"].Parent = Converted["_Shops"]
@@ -603,10 +613,26 @@ Converted["_Misc"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
 Converted["_Misc"].Name = "Misc"
 Converted["_Misc"].Parent = Converted["_Tabs"]
 Converted["_Misc"].MouseButton1Down:Connect(
-    function()
-        ShowFrame("Misc")
-    end
+	function()
+		ShowFrame("Misc")
+	end
 )
+
+Converted["_Premium"].Font = Enum.Font.SourceSansBold
+Converted["_Premium"].Text = "Premium"
+Converted["_Premium"].TextColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Premium"].TextSize = 14
+Converted["_Premium"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Premium"].BackgroundTransparency = 0.75
+Converted["_Premium"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Premium"].BorderSizePixel = 0
+Converted["_Premium"].LayoutOrder = 10
+Converted["_Premium"].Size = UDim2.new(0.899999976, 0, 0.174999997, 0)
+Converted["_Premium"].Name = "Premium"
+Converted["_Premium"].Parent = Converted["_Tabs"]
+Converted["_Premium"].MouseButton1Down:Connect(function()
+	ShowFrame("Premium")
+end)
 
 Converted["_UICorner10"].Parent = Converted["_Misc"]
 
@@ -614,7 +640,7 @@ Converted["_Filler2"].BackgroundColor3 = Color3.fromRGB(25.000002309679985, 25.0
 Converted["_Filler2"].BackgroundTransparency = 1
 Converted["_Filler2"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Filler2"].BorderSizePixel = 0
-Converted["_Filler2"].LayoutOrder = 10
+Converted["_Filler2"].LayoutOrder = 11
 Converted["_Filler2"].Position = UDim2.new(-3.02704711e-06, 0, 0.0948298797, 0)
 Converted["_Filler2"].Size = UDim2.new(1.0000031, 0, 0.0174531769, 0)
 Converted["_Filler2"].Name = "Filler"
@@ -679,18 +705,18 @@ Converted["_Toggle"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle"].Name = "Toggle"
 Converted["_Toggle"].Parent = Converted["_Main1"]
 Converted["_Toggle"].MouseButton1Down:Connect(
-    function()
-        _G.Settings["AutoBubble"] = not _G.Settings["AutoBubble"]
-        if _G.Settings["AutoBubble"] then
-            Converted["_Frame"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings["AutoBubble"] do
-            Network:FireServer("BlowBubble")
-            task.wait()
-        end
-    end
+	function()
+		_G.Settings["AutoBubble"] = not _G.Settings["AutoBubble"]
+		if _G.Settings["AutoBubble"] then
+			Converted["_Frame"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings["AutoBubble"] do
+			Network:FireServer("BlowBubble")
+			task.wait()
+		end
+	end
 )
 
 Converted["_UICorner11"].Parent = Converted["_Toggle"]
@@ -739,27 +765,27 @@ Converted["_Toggle1"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle1"].Name = "Toggle"
 Converted["_Toggle1"].Parent = Converted["_Main1"]
 Converted["_Toggle1"].MouseButton1Down:Connect(
-    function()
-        _G.Settings["AutoCollect"] = not _G.Settings["AutoCollect"]
-        if _G.Settings["AutoCollect"] then
-            Converted["_Frame1"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame1"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings["AutoCollect"] do
-            for i, Folder in pairs(workspace.Rendered:GetChildren()) do
-                if Folder.Name == "Chunker" then
-                    for i, v in pairs(Folder:GetChildren()) do
-                        if v:IsA("Model") and not v.Name:lower():find("egg") then
-                            RS.Remotes.Pickups.CollectPickup:FireServer(v.Name)
-                            v:Destroy()
-                        end
-                    end
-                end
-            end
-            wait()
-        end
-    end
+	function()
+		_G.Settings["AutoCollect"] = not _G.Settings["AutoCollect"]
+		if _G.Settings["AutoCollect"] then
+			Converted["_Frame1"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame1"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings["AutoCollect"] do
+			for i, Folder in pairs(workspace.Rendered:GetChildren()) do
+				if Folder.Name == "Chunker" then
+					for i, v in pairs(Folder:GetChildren()) do
+						if v:IsA("Model") and not v.Name:lower():find("egg") then
+							RS.Remotes.Pickups.CollectPickup:FireServer(v.Name)
+							v:Destroy()
+						end
+					end
+				end
+			end
+			wait()
+		end
+	end
 )
 
 Converted["_UICorner13"].Parent = Converted["_Toggle1"]
@@ -797,26 +823,26 @@ Converted["_Toggle2"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle2"].Name = "Toggle"
 Converted["_Toggle2"].Parent = Converted["_Main1"]
 Converted["_Toggle2"].MouseButton1Down:Connect(
-    function()
-        _G.Settings["AutoGoldenOrb"] = not _G.Settings["AutoGoldenOrb"]
-        if _G.Settings["AutoGoldenOrb"] then
-            Converted["_Frame2"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame2"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings["AutoGoldenOrb"] do
-            local GoldRushActive = false
-            for i, v in pairs(DataModule:Get().ActiveBuffs) do
-                if v.Name == "GoldRush" then
-                    GoldRushActive = true
-                end
-            end
-            if not GoldRushActive then
-                Network:FireServer("UseGoldenOrb")
-            end
-            wait(10)
-        end
-    end
+	function()
+		_G.Settings["AutoGoldenOrb"] = not _G.Settings["AutoGoldenOrb"]
+		if _G.Settings["AutoGoldenOrb"] then
+			Converted["_Frame2"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame2"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings["AutoGoldenOrb"] do
+			local GoldRushActive = false
+			for i, v in pairs(DataModule:Get().ActiveBuffs) do
+				if v.Name == "GoldRush" then
+					GoldRushActive = true
+				end
+			end
+			if not GoldRushActive then
+				Network:FireServer("UseGoldenOrb")
+			end
+			wait(10)
+		end
+	end
 )
 
 Converted["_UICorner15"].Parent = Converted["_Toggle2"]
@@ -879,178 +905,178 @@ local AllEggs = {}
 local SelectedEgg
 
 for EggName, EggInfo in pairs(EggsModule) do
-    table.insert(AllEggs, EggName)
+	table.insert(AllEggs, EggName)
 end
 
 local EggPositionMap = {
-    ["Common Egg"] = CFrame.new(
-        -83.9570618,
-        10.1146965,
-        1.46630895,
-        -0.757433712,
-        3.66119195e-07,
-        -0.65291208,
-        2.59595396e-07,
-        1,
-        2.59595282e-07,
-        0.65291208,
-        2.71332539e-08,
-        -0.757433712
-    ),
-    ["Spotted Egg"] = CFrame.new(
-        -94.0838013,
-        10.1146984,
-        7.65263462,
-        -0.898797214,
-        1.19526206e-07,
-        -0.438364595,
-        2.59595566e-07,
-        1,
-        -2.59595708e-07,
-        0.438364595,
-        -3.47121386e-07,
-        -0.898797214
-    ),
-    ["Iceshard Egg"] = CFrame.new(
-        -117.141449,
-        10.1146965,
-        8.26757526,
-        -0.936669111,
-        3.34069568e-07,
-        0.350215614,
-        2.59595566e-07,
-        1,
-        -2.59595595e-07,
-        -0.350215614,
-        -1.52240773e-07,
-        -0.936669111
-    ),
-    ["Spikey Egg"] = CFrame.new(
-        -125.794189,
-        10.1146955,
-        5.04188585,
-        -0.870350599,
-        -9.81058292e-08,
-        0.492432564,
-        -2.59595453e-07,
-        1,
-        -2.59595367e-07,
-        -0.492432564,
-        -3.53772236e-07,
-        -0.870350599
-    ),
-    ["Magma Egg"] = CFrame.new(
-        -132.805634,
-        10.1146011,
-        -0.880043149,
-        -0.700912714,
-        -3.2019829e-09,
-        0.713247061,
-        2.59595481e-07,
-        1,
-        2.59595566e-07,
-        -0.713247061,
-        3.6710955e-07,
-        -0.700912714
-    ),
-    ["Crystal Egg"] = CFrame.new(
-        -138.691528,
-        10.1146965,
-        -8.08726406,
-        -0.49245429,
-        -9.80970114e-08,
-        0.870338321,
-        2.59595623e-07,
-        1,
-        2.59595595e-07,
-        -0.870338321,
-        3.53774965e-07,
-        -0.49245429
-    ),
-    ["Lunar Egg"] = CFrame.new(
-        -142.498962,
-        10.1146946,
-        -16.874157,
-        -0.267240137,
-        -1.8077958e-07,
-        0.963629961,
-        2.59595367e-07,
-        1,
-        2.59595367e-07,
-        -0.963629961,
-        3.19528198e-07,
-        -0.267240137
-    ),
-    ["Void Egg"] = CFrame.new(
-        -143.677628,
-        10.1146908,
-        -26.006731,
-        -6.58018362e-10,
-        -2.59595168e-07,
-        1,
-        -2.59595481e-07,
-        1,
-        2.59595168e-07,
-        -1,
-        -2.59595481e-07,
-        -6.58085753e-10
-    ),
-    ["Hell Egg"] = CFrame.new(
-        -143.145706,
-        10.1146965,
-        -35.6861458,
-        0.190810844,
-        -2.05292082e-07,
-        0.981626809,
-        -2.5959551e-07,
-        1,
-        2.59595311e-07,
-        -0.981626809,
-        -3.04359503e-07,
-        0.190810844
-    ),
-    ["Nightmare Egg"] = CFrame.new(
-        -140.140411,
-        10.1146965,
-        -44.2904663,
-        0.382679164,
-        1.40493725e-07,
-        0.923881292,
-        2.5959568e-07,
-        1,
-        -2.5959568e-07,
-        -0.923881292,
-        3.39177461e-07,
-        0.382679164
-    ),
-    ["Rainbow Egg"] = CFrame.new(
-        -135.637314,
-        10.1144619,
-        -52.0507393,
-        0.64945358,
-        8.48179353e-16,
-        0.760401249,
-        2.11109396e-16,
-        1,
-        -1.29574367e-15,
-        -0.760401249,
-        1.00205321e-15,
-        0.64945358
-    ),
-    ["Throwback Egg"] = CFrame.new(
-        -128.119705,
-        10.1146965,
-        -58.0951195,
-        0.803853273,
-        1.32197272e-13,
-        0.594827652,
-        -4.76484391e-14,
-        1,
-        -1.57852315e-13,
-        -0.594827652,
-        9.85474926e-14,
-        0.803853273
-    )
+	["Common Egg"] = CFrame.new(
+		-83.9570618,
+		10.1146965,
+		1.46630895,
+		-0.757433712,
+		3.66119195e-07,
+		-0.65291208,
+		2.59595396e-07,
+		1,
+		2.59595282e-07,
+		0.65291208,
+		2.71332539e-08,
+		-0.757433712
+	),
+	["Spotted Egg"] = CFrame.new(
+		-94.0838013,
+		10.1146984,
+		7.65263462,
+		-0.898797214,
+		1.19526206e-07,
+		-0.438364595,
+		2.59595566e-07,
+		1,
+		-2.59595708e-07,
+		0.438364595,
+		-3.47121386e-07,
+		-0.898797214
+	),
+	["Iceshard Egg"] = CFrame.new(
+		-117.141449,
+		10.1146965,
+		8.26757526,
+		-0.936669111,
+		3.34069568e-07,
+		0.350215614,
+		2.59595566e-07,
+		1,
+		-2.59595595e-07,
+		-0.350215614,
+		-1.52240773e-07,
+		-0.936669111
+	),
+	["Spikey Egg"] = CFrame.new(
+		-125.794189,
+		10.1146955,
+		5.04188585,
+		-0.870350599,
+		-9.81058292e-08,
+		0.492432564,
+		-2.59595453e-07,
+		1,
+		-2.59595367e-07,
+		-0.492432564,
+		-3.53772236e-07,
+		-0.870350599
+	),
+	["Magma Egg"] = CFrame.new(
+		-132.805634,
+		10.1146011,
+		-0.880043149,
+		-0.700912714,
+		-3.2019829e-09,
+		0.713247061,
+		2.59595481e-07,
+		1,
+		2.59595566e-07,
+		-0.713247061,
+		3.6710955e-07,
+		-0.700912714
+	),
+	["Crystal Egg"] = CFrame.new(
+		-138.691528,
+		10.1146965,
+		-8.08726406,
+		-0.49245429,
+		-9.80970114e-08,
+		0.870338321,
+		2.59595623e-07,
+		1,
+		2.59595595e-07,
+		-0.870338321,
+		3.53774965e-07,
+		-0.49245429
+	),
+	["Lunar Egg"] = CFrame.new(
+		-142.498962,
+		10.1146946,
+		-16.874157,
+		-0.267240137,
+		-1.8077958e-07,
+		0.963629961,
+		2.59595367e-07,
+		1,
+		2.59595367e-07,
+		-0.963629961,
+		3.19528198e-07,
+		-0.267240137
+	),
+	["Void Egg"] = CFrame.new(
+		-143.677628,
+		10.1146908,
+		-26.006731,
+		-6.58018362e-10,
+		-2.59595168e-07,
+		1,
+		-2.59595481e-07,
+		1,
+		2.59595168e-07,
+		-1,
+		-2.59595481e-07,
+		-6.58085753e-10
+	),
+	["Hell Egg"] = CFrame.new(
+		-143.145706,
+		10.1146965,
+		-35.6861458,
+		0.190810844,
+		-2.05292082e-07,
+		0.981626809,
+		-2.5959551e-07,
+		1,
+		2.59595311e-07,
+		-0.981626809,
+		-3.04359503e-07,
+		0.190810844
+	),
+	["Nightmare Egg"] = CFrame.new(
+		-140.140411,
+		10.1146965,
+		-44.2904663,
+		0.382679164,
+		1.40493725e-07,
+		0.923881292,
+		2.5959568e-07,
+		1,
+		-2.5959568e-07,
+		-0.923881292,
+		3.39177461e-07,
+		0.382679164
+	),
+	["Rainbow Egg"] = CFrame.new(
+		-135.637314,
+		10.1144619,
+		-52.0507393,
+		0.64945358,
+		8.48179353e-16,
+		0.760401249,
+		2.11109396e-16,
+		1,
+		-1.29574367e-15,
+		-0.760401249,
+		1.00205321e-15,
+		0.64945358
+	),
+	["Throwback Egg"] = CFrame.new(
+		-128.119705,
+		10.1146965,
+		-58.0951195,
+		0.803853273,
+		1.32197272e-13,
+		0.594827652,
+		-4.76484391e-14,
+		1,
+		-1.57852315e-13,
+		-0.594827652,
+		9.85474926e-14,
+		0.803853273
+	)
 }
 
 Converted["_Toggle3"].Font = Enum.Font.SourceSans
@@ -1068,22 +1094,22 @@ Converted["_Toggle3"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle3"].Name = "Toggle"
 Converted["_Toggle3"].Parent = Converted["_Eggs1"]
 Converted["_Toggle3"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoHatch"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        local EggCost = EggsModule[SelectedEgg].Cost
-        if _G.Settings[Setting] then
-            Converted["_Frame3"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame3"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            if DataModule:Get()[EggCost.Currency] >= EggCost.Amount then
-                Network:FireServer("HatchEgg", SelectedEgg, 10)
-            end
-            task.wait(0.25)
-        end
-    end
+	function()
+		local Setting = "AutoHatch"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		local EggCost = EggsModule[SelectedEgg].Cost
+		if _G.Settings[Setting] then
+			Converted["_Frame3"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame3"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			if DataModule:Get()[EggCost.Currency] >= EggCost.Amount then
+				Network:FireServer("HatchEgg", SelectedEgg, 10)
+			end
+			task.wait(0.25)
+		end
+	end
 )
 
 Converted["_UICorner17"].Parent = Converted["_Toggle3"]
@@ -1126,42 +1152,42 @@ Converted["_Dropdown"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Dropdown"].Name = "Dropdown"
 Converted["_Dropdown"].Parent = Converted["_Eggs1"]
 Converted["_Dropdown"].MouseButton1Down:Connect(
-    function()
-        Converted["_Title6"].Rotation = Converted["_Title6"].Rotation + 180
-        for i, v in pairs(Converted["_DropdownMenu"]:GetChildren()) do
-            if v:IsA("TextButton") then
-                v:Destroy()
-            end
-        end
-        for i, v in pairs(AllEggs) do
-            local Option = Instance.new("TextButton", Converted["_DropdownMenu"])
-            Option.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-            Option.BackgroundTransparency = 0.75
-            Option.Size = UDim2.new(1, 0, 0.5, 0)
-            Option.Text = ""
-            Option.Name = "Button"
+	function()
+		Converted["_Title6"].Rotation = Converted["_Title6"].Rotation + 180
+		for i, v in pairs(Converted["_DropdownMenu"]:GetChildren()) do
+			if v:IsA("TextButton") then
+				v:Destroy()
+			end
+		end
+		for i, v in pairs(AllEggs) do
+			local Option = Instance.new("TextButton", Converted["_DropdownMenu"])
+			Option.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			Option.BackgroundTransparency = 0.75
+			Option.Size = UDim2.new(1, 0, 0.5, 0)
+			Option.Text = ""
+			Option.Name = "Button"
 
-            local OptionText = Instance.new("TextLabel", Option)
-            OptionText.Font = Enum.Font.SourceSansBold
-            OptionText.Text = v
-            OptionText.TextScaled = true
-            OptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
-            OptionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            OptionText.TextXAlignment = Enum.TextXAlignment.Left
-            OptionText.BackgroundTransparency = 1
-            OptionText.Position = UDim2.new(0.0271166489, 0, 0, 0)
-            OptionText.Size = UDim2.new(0.972883284, 0, 1, 0)
-            OptionText.Name = "Title"
+			local OptionText = Instance.new("TextLabel", Option)
+			OptionText.Font = Enum.Font.SourceSansBold
+			OptionText.Text = v
+			OptionText.TextScaled = true
+			OptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
+			OptionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			OptionText.TextXAlignment = Enum.TextXAlignment.Left
+			OptionText.BackgroundTransparency = 1
+			OptionText.Position = UDim2.new(0.0271166489, 0, 0, 0)
+			OptionText.Size = UDim2.new(0.972883284, 0, 1, 0)
+			OptionText.Name = "Title"
 
-            Option.MouseButton1Down:Connect(
-                function()
-                    Converted["_Title5"].Text = "Select An Egg (" .. OptionText.Text .. ")"
-                    SelectedEgg = OptionText.Text
-                end
-            )
-        end
-        Converted["_DropdownMenu"].Visible = not Converted["_DropdownMenu"].Visible
-    end
+			Option.MouseButton1Down:Connect(
+				function()
+					Converted["_Title5"].Text = "Select An Egg (" .. OptionText.Text .. ")"
+					SelectedEgg = OptionText.Text
+				end
+			)
+		end
+		Converted["_DropdownMenu"].Visible = not Converted["_DropdownMenu"].Visible
+	end
 )
 
 Converted["_UICorner19"].Parent = Converted["_Dropdown"]
@@ -1272,15 +1298,15 @@ Converted["_Button1"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Button1"].Name = "Button"
 Converted["_Button1"].Parent = Converted["_Eggs1"]
 Converted["_Button1"].MouseButton1Down:Connect(
-    function()
-        for i, v in pairs(getgc(true)) do
-            if typeof(v) == "table" and rawget(v, "Play") then
-                v.Play = function()
-                    return
-                end
-            end
-        end
-    end
+	function()
+		for i, v in pairs(getgc(true)) do
+			if typeof(v) == "table" and rawget(v, "Play") then
+				v.Play = function()
+					return
+				end
+			end
+		end
+	end
 )
 
 Converted["_UICorner23"].Parent = Converted["_Button1"]
@@ -1335,23 +1361,23 @@ local AllRifts = {}
 local SelectedRift
 
 local function ResetRifts()
-    AllRifts = {}
-    for i, Rift in pairs(RiftsFolder:GetChildren()) do
-        table.insert(AllRifts, tostring(i) .. ". " .. CodenameToRegularName(Rift.Name))
-    end
+	AllRifts = {}
+	for i, Rift in pairs(RiftsFolder:GetChildren()) do
+		table.insert(AllRifts, tostring(i) .. ". " .. CodenameToRegularName(Rift.Name))
+	end
 end
 ResetRifts()
 
 RiftsFolder.ChildAdded:Connect(
-    function()
-        ResetRifts()
-    end
+	function()
+		ResetRifts()
+	end
 )
 
 RiftsFolder.ChildRemoved:Connect(
-    function()
-        ResetRifts()
-    end
+	function()
+		ResetRifts()
+	end
 )
 
 Converted["_Dropdown1"].Font = Enum.Font.SourceSans
@@ -1369,42 +1395,42 @@ Converted["_Dropdown1"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Dropdown1"].Name = "Dropdown"
 Converted["_Dropdown1"].Parent = Converted["_Rifts1"]
 Converted["_Dropdown1"].MouseButton1Down:Connect(
-    function()
-        Converted["_Title10"].Rotation = Converted["_Title10"].Rotation + 180
-        for i, v in pairs(Converted["_DropdownMenu1"]:GetChildren()) do
-            if v:IsA("TextButton") then
-                v:Destroy()
-            end
-        end
-        for i, v in pairs(AllRifts) do
-            local Option = Instance.new("TextButton", Converted["_DropdownMenu1"])
-            Option.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-            Option.BackgroundTransparency = 0.75
-            Option.Size = UDim2.new(1, 0, 0.5, 0)
-            Option.Text = ""
-            Option.Name = "Button"
+	function()
+		Converted["_Title10"].Rotation = Converted["_Title10"].Rotation + 180
+		for i, v in pairs(Converted["_DropdownMenu1"]:GetChildren()) do
+			if v:IsA("TextButton") then
+				v:Destroy()
+			end
+		end
+		for i, v in pairs(AllRifts) do
+			local Option = Instance.new("TextButton", Converted["_DropdownMenu1"])
+			Option.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			Option.BackgroundTransparency = 0.75
+			Option.Size = UDim2.new(1, 0, 0.5, 0)
+			Option.Text = ""
+			Option.Name = "Button"
 
-            local OptionText = Instance.new("TextLabel", Option)
-            OptionText.Font = Enum.Font.SourceSansBold
-            OptionText.Text = v
-            OptionText.TextScaled = true
-            OptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
-            OptionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            OptionText.TextXAlignment = Enum.TextXAlignment.Left
-            OptionText.BackgroundTransparency = 1
-            OptionText.Position = UDim2.new(0.0271166489, 0, 0, 0)
-            OptionText.Size = UDim2.new(0.972883284, 0, 1, 0)
-            OptionText.Name = "Title"
+			local OptionText = Instance.new("TextLabel", Option)
+			OptionText.Font = Enum.Font.SourceSansBold
+			OptionText.Text = v
+			OptionText.TextScaled = true
+			OptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
+			OptionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			OptionText.TextXAlignment = Enum.TextXAlignment.Left
+			OptionText.BackgroundTransparency = 1
+			OptionText.Position = UDim2.new(0.0271166489, 0, 0, 0)
+			OptionText.Size = UDim2.new(0.972883284, 0, 1, 0)
+			OptionText.Name = "Title"
 
-            Option.MouseButton1Down:Connect(
-                function()
-                    Converted["_Title9"].Text = "Select A Rift (" .. OptionText.Text .. ")"
-                    SelectedRift = tonumber(string.split(OptionText.Text, ".")[1])
-                end
-            )
-        end
-        Converted["_DropdownMenu1"].Visible = not Converted["_DropdownMenu1"].Visible
-    end
+			Option.MouseButton1Down:Connect(
+				function()
+					Converted["_Title9"].Text = "Select A Rift (" .. OptionText.Text .. ")"
+					SelectedRift = tonumber(string.split(OptionText.Text, ".")[1])
+				end
+			)
+		end
+		Converted["_DropdownMenu1"].Visible = not Converted["_DropdownMenu1"].Visible
+	end
 )
 
 Converted["_UICorner24"].Parent = Converted["_Dropdown1"]
@@ -1515,9 +1541,9 @@ Converted["_Button3"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Button3"].Name = "Button"
 Converted["_Button3"].Parent = Converted["_Rifts1"]
 Converted["_Button3"].MouseButton1Down:Connect(
-    function()
-        Tween(RiftsFolder:GetChildren()[SelectedRift].Display)
-    end
+	function()
+		Tween(RiftsFolder:GetChildren()[SelectedRift].Display)
+	end
 )
 
 Converted["_UICorner28"].Parent = Converted["_Button3"]
@@ -1582,19 +1608,19 @@ Converted["_Toggle4"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle4"].Name = "Toggle"
 Converted["_Toggle4"].Parent = Converted["_Rewards1"]
 Converted["_Toggle4"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoClaimDaily"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame4"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame4"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            Network:FireServer("DailyRewardClaimStars")
-            task.wait(300)
-        end
-    end
+	function()
+		local Setting = "AutoClaimDaily"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame4"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame4"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			Network:FireServer("DailyRewardClaimStars")
+			task.wait(300)
+		end
+	end
 )
 
 Converted["_UICorner29"].Parent = Converted["_Toggle4"]
@@ -1637,19 +1663,19 @@ Converted["_Toggle5"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle5"].Name = "Toggle"
 Converted["_Toggle5"].Parent = Converted["_Rewards1"]
 Converted["_Toggle5"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoClaimSpinTicket"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame5"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame5"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            Network:FireServer("ClaimFreeWheelSpin")
-            task.wait(60)
-        end
-    end
+	function()
+		local Setting = "AutoClaimSpinTicket"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame5"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame5"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			Network:FireServer("ClaimFreeWheelSpin")
+			task.wait(60)
+		end
+	end
 )
 
 Converted["_UICorner31"].Parent = Converted["_Toggle5"]
@@ -1692,22 +1718,22 @@ Converted["_Toggle6"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle6"].Name = "Toggle"
 Converted["_Toggle6"].Parent = Converted["_Rewards1"]
 Converted["_Toggle6"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoPlaytime"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame6"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame6"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            for i = 1, 9 do
-                Network:InvokeServer("ClaimPlaytime", i)
-                task.wait()
-            end
-            task.wait(10)
-        end
-    end
+	function()
+		local Setting = "AutoPlaytime"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame6"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame6"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			for i = 1, 9 do
+				Network:InvokeServer("ClaimPlaytime", i)
+				task.wait()
+			end
+			task.wait(10)
+		end
+	end
 )
 
 Converted["_UICorner33"].Parent = Converted["_Toggle6"]
@@ -1750,22 +1776,22 @@ Converted["_Toggle7"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle7"].Name = "Toggle"
 Converted["_Toggle7"].Parent = Converted["_Rewards1"]
 Converted["_Toggle7"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoClaimQuests"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame7"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame7"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            for i = 1, 30 do
-                Network:InvokeServer("ClaimPrize", i)
-                task.wait()
-            end
-            task.wait(10)
-        end
-    end
+	function()
+		local Setting = "AutoClaimQuests"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame7"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame7"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			for i = 1, 30 do
+				Network:InvokeServer("ClaimPrize", i)
+				task.wait()
+			end
+			task.wait(10)
+		end
+	end
 )
 
 Converted["_UICorner35"].Parent = Converted["_Toggle7"]
@@ -1808,22 +1834,22 @@ Converted["_Toggle8"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle8"].Name = "Toggle"
 Converted["_Toggle8"].Parent = Converted["_Rewards1"]
 Converted["_Toggle8"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoClaimChests"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame8"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame8"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            for i, Chest in pairs(_G.Chests) do
-                Network:FireServer("ClaimChest", i, true)
-                task.wait(0.25)
-            end
-            task.wait(60)
-        end
-    end
+	function()
+		local Setting = "AutoClaimChests"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame8"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame8"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			for i, Chest in pairs(_G.Chests) do
+				Network:FireServer("ClaimChest", i, true)
+				task.wait(0.25)
+			end
+			task.wait(60)
+		end
+	end
 )
 
 Converted["_UICorner37"].Parent = Converted["_Toggle8"]
@@ -1898,26 +1924,26 @@ Converted["_Toggle9"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle9"].Name = "Toggle"
 Converted["_Toggle9"].Parent = Converted["_Items1"]
 Converted["_Toggle9"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoMysteryGift"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Connection =
-                workspace.Rendered.Gifts.ChildAdded:Connect(
-                function(Gift)
-                    Network:FireServer("ClaimGift", Gift.Name)
-                end
-            )
-            Converted["_Frame9"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Connection:Disconnect()
-            Converted["_Frame9"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            Network:FireServer("UseGift", "Mystery Box", 1)
-            task.wait()
-        end
-    end
+	function()
+		local Setting = "AutoMysteryGift"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Connection =
+				workspace.Rendered.Gifts.ChildAdded:Connect(
+					function(Gift)
+						Network:FireServer("ClaimGift", Gift.Name)
+					end
+				)
+			Converted["_Frame9"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Connection:Disconnect()
+			Converted["_Frame9"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			Network:FireServer("UseGift", "Mystery Box", 1)
+			task.wait()
+		end
+	end
 )
 
 Converted["_UICorner39"].Parent = Converted["_Toggle9"]
@@ -1960,19 +1986,19 @@ Converted["_Toggle10"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle10"].Name = "Toggle"
 Converted["_Toggle10"].Parent = Converted["_Items1"]
 Converted["_Toggle10"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoGoldenChest"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame10"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame10"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            Network:FireServer("UnlockRiftChest", "golden-chest", false)
-            task.wait(1)
-        end
-    end
+	function()
+		local Setting = "AutoGoldenChest"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame10"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame10"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			Network:FireServer("UnlockRiftChest", "golden-chest", false)
+			task.wait(1)
+		end
+	end
 )
 
 Converted["_UICorner41"].Parent = Converted["_Toggle10"]
@@ -2015,19 +2041,19 @@ Converted["_Toggle11"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle11"].Name = "Toggle"
 Converted["_Toggle11"].Parent = Converted["_Items1"]
 Converted["_Toggle11"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoRiftChest"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame11"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame11"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            Network:FireServer("UnlockRiftChest", "rift-chest", false)
-            task.wait(1)
-        end
-    end
+	function()
+		local Setting = "AutoRiftChest"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame11"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame11"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			Network:FireServer("UnlockRiftChest", "rift-chest", false)
+			task.wait(1)
+		end
+	end
 )
 
 Converted["_UICorner43"].Parent = Converted["_Toggle11"]
@@ -2070,18 +2096,18 @@ Converted["_Toggle12"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle12"].Name = "Toggle"
 Converted["_Toggle12"].Parent = Converted["_Items1"]
 Converted["_Toggle12"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoSpinWheel"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame12"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame12"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            Network:InvokeServer("WheelSpin")
-        end
-    end
+	function()
+		local Setting = "AutoSpinWheel"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame12"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame12"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			Network:InvokeServer("WheelSpin")
+		end
+	end
 )
 
 Converted["_UICorner45"].Parent = Converted["_Toggle12"]
@@ -2111,23 +2137,23 @@ Converted["_UICorner46"].Parent = Converted["_Frame12"]
 
 local AllPets = {}
 local AllEnchants = {
-    "team-up",
-    "bubbler",
-    "looter",
-    "gleaming",
-    "magnetism",
-    "high-roller",
-    "infinity"
+	"team-up",
+	"bubbler",
+	"looter",
+	"gleaming",
+	"magnetism",
+	"high-roller",
+	"infinity"
 }
 local SelectedPet = "None"
 local SelectedEnch = "team-up"
 local SelectedLvl = 5
 
 local function RefreshPets()
-    AllPets = {}
-    for i, v in pairs(DataModule:Get().Pets) do
-        table.insert(AllPets, tostring(v.Name .. " - " .. v.Id))
-    end
+	AllPets = {}
+	for i, v in pairs(DataModule:Get().Pets) do
+		table.insert(AllPets, tostring(v.Name .. " - " .. v.Id))
+	end
 end
 RefreshPets()
 
@@ -2170,43 +2196,41 @@ Converted["_Toggle13"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Toggle13"].BackgroundTransparency = 0.75
 Converted["_Toggle13"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Toggle13"].BorderSizePixel = 0
-Converted["_Toggle13"].LayoutOrder = 5
+Converted["_Toggle13"].LayoutOrder = 7
 Converted["_Toggle13"].Position = UDim2.new(0.231481478, 0, 0, 0)
 Converted["_Toggle13"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle13"].Name = "Toggle"
 Converted["_Toggle13"].Parent = Converted["_Enchants1"]
 Converted["_Toggle13"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoEnchant"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame13"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame13"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            local Id = SelectedPet:split(" - ")[2]
-            for i, Pet in pairs(DataModule:Get().Pets) do
-                if Pet.Id == Id then
-                    if Pet.Enchants == nil then
-                        Network:InvokeServer("RerollEnchants", Pet.Id)
-                    elseif #Pet.Enchants == 0 then
-                        Network:InvokeServer("RerollEnchants", Pet.Id)
-                    end
-                    local hasEnchant = false
-                    for i, Enchant in pairs(Pet.Enchants) do
-                        if Enchant.Id == SelectedEnch and Enchant.Level == SelectedLvl then
-                            hasEnchant = true
-                        end
-                    end
-                    if hasEnchant == false then
-                        Network:InvokeServer("RerollEnchants", Pet.Id)
-                    end
-                end
-            end
-            task.wait()
-        end
-    end
+	function()
+		local Setting = "AutoEnchant"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame13"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame13"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			local Id = SelectedPet:split(" - ")[2]
+			for i, Pet in pairs(DataModule:Get().Pets) do
+				if Pet.Id == Id then
+					if #Pet.Enchants == 0 then
+						Network:InvokeServer("RerollEnchants", Pet.Id)
+					end
+					local hasEnchant = false
+					for i, Enchant in pairs(Pet.Enchants) do
+						if Enchant.Id == SelectedEnch and Enchant.Level == SelectedLvl then
+							hasEnchant = true
+						end
+					end
+					if not hasEnchant then
+						Network:InvokeServer("RerollEnchants", Pet.Id)
+					end
+				end
+			end
+			task.wait()
+		end
+	end
 )
 
 Converted["_UICorner47"].Parent = Converted["_Toggle13"]
@@ -2249,42 +2273,42 @@ Converted["_Dropdown2"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Dropdown2"].Name = "Dropdown"
 Converted["_Dropdown2"].Parent = Converted["_Enchants1"]
 Converted["_Dropdown2"].MouseButton1Down:Connect(
-    function()
-        Converted["_Title24"].Rotation = Converted["_Title24"].Rotation + 180
-        for i, v in pairs(Converted["_DropdownMenu2"]:GetChildren()) do
-            if v:IsA("TextButton") then
-                v:Destroy()
-            end
-        end
-        for i, v in pairs(AllPets) do
-            local Option = Instance.new("TextButton", Converted["_DropdownMenu2"])
-            Option.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-            Option.BackgroundTransparency = 0.75
-            Option.Size = UDim2.new(1, 0, 0.5, 0)
-            Option.Text = ""
-            Option.Name = "Button"
+	function()
+		Converted["_Title24"].Rotation = Converted["_Title24"].Rotation + 180
+		for i, v in pairs(Converted["_DropdownMenu2"]:GetChildren()) do
+			if v:IsA("TextButton") then
+				v:Destroy()
+			end
+		end
+		for i, v in pairs(AllPets) do
+			local Option = Instance.new("TextButton", Converted["_DropdownMenu2"])
+			Option.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			Option.BackgroundTransparency = 0.75
+			Option.Size = UDim2.new(1, 0, 0.5, 0)
+			Option.Text = ""
+			Option.Name = "Button"
 
-            local OptionText = Instance.new("TextLabel", Option)
-            OptionText.Font = Enum.Font.SourceSansBold
-            OptionText.Text = v
-            OptionText.TextScaled = true
-            OptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
-            OptionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            OptionText.TextXAlignment = Enum.TextXAlignment.Left
-            OptionText.BackgroundTransparency = 1
-            OptionText.Position = UDim2.new(0.0271166489, 0, 0, 0)
-            OptionText.Size = UDim2.new(0.972883284, 0, 1, 0)
-            OptionText.Name = "Title"
+			local OptionText = Instance.new("TextLabel", Option)
+			OptionText.Font = Enum.Font.SourceSansBold
+			OptionText.Text = v
+			OptionText.TextScaled = true
+			OptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
+			OptionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			OptionText.TextXAlignment = Enum.TextXAlignment.Left
+			OptionText.BackgroundTransparency = 1
+			OptionText.Position = UDim2.new(0.0271166489, 0, 0, 0)
+			OptionText.Size = UDim2.new(0.972883284, 0, 1, 0)
+			OptionText.Name = "Title"
 
-            Option.MouseButton1Down:Connect(
-                function()
-                    Converted["_Title23"].Text = "Select Pet (" .. OptionText.Text .. ")"
-                    SelectedPet = OptionText.Text
-                end
-            )
-        end
-        Converted["_DropdownMenu2"].Visible = not Converted["_DropdownMenu2"].Visible
-    end
+			Option.MouseButton1Down:Connect(
+				function()
+					Converted["_Title23"].Text = "Select Pet (" .. OptionText.Text .. ")"
+					SelectedPet = OptionText.Text
+				end
+			)
+		end
+		Converted["_DropdownMenu2"].Visible = not Converted["_DropdownMenu2"].Visible
+	end
 )
 
 Converted["_UICorner49"].Parent = Converted["_Dropdown2"]
@@ -2335,7 +2359,7 @@ Converted["_DropdownMenu2"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_DropdownMenu2"].BackgroundTransparency = 1
 Converted["_DropdownMenu2"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_DropdownMenu2"].BorderSizePixel = 0
-Converted["_DropdownMenu2"].LayoutOrder = 1
+Converted["_DropdownMenu2"].LayoutOrder = 2
 Converted["_DropdownMenu2"].Position = UDim2.new(0.0401233621, 0, 0.344189018, 0)
 Converted["_DropdownMenu2"].Size = UDim2.new(0, 301, 0, 100)
 Converted["_DropdownMenu2"].Visible = false
@@ -2389,7 +2413,7 @@ Converted["_Button5"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Button5"].BackgroundTransparency = 0.75
 Converted["_Button5"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Button5"].BorderSizePixel = 0
-Converted["_Button5"].LayoutOrder = 2
+Converted["_Button5"].LayoutOrder = 3
 Converted["_Button5"].Position = UDim2.new(0.231481478, 0, 0, 0)
 Converted["_Button5"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Button5"].Name = "Button"
@@ -2415,7 +2439,7 @@ Converted["_Input"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Input"].BackgroundTransparency = 0.75
 Converted["_Input"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Input"].BorderSizePixel = 0
-Converted["_Input"].LayoutOrder = 4
+Converted["_Input"].LayoutOrder = 6
 Converted["_Input"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Input"].Name = "Input"
 Converted["_Input"].Parent = Converted["_Enchants1"]
@@ -2459,9 +2483,9 @@ Converted["_TextBox"].BorderSizePixel = 0
 Converted["_TextBox"].Size = UDim2.new(1, 0, 1, 0)
 Converted["_TextBox"].Parent = Converted["_Frame14"]
 Converted["_TextBox"].FocusLost:Connect(
-    function()
-        SelectedLvl = tonumber(Converted["_TextBox"].Text)
-    end
+	function()
+		SelectedLvl = tonumber(Converted["_TextBox"].Text)
+	end
 )
 
 Converted["_Dropdown3"].Font = Enum.Font.SourceSans
@@ -2473,54 +2497,54 @@ Converted["_Dropdown3"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Dropdown3"].BackgroundTransparency = 0.75
 Converted["_Dropdown3"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_Dropdown3"].BorderSizePixel = 0
-Converted["_Dropdown3"].LayoutOrder = 3
+Converted["_Dropdown3"].LayoutOrder = 4
 Converted["_Dropdown3"].Position = UDim2.new(0.231481478, 0, 0, 0)
 Converted["_Dropdown3"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Dropdown3"].Name = "Dropdown"
 Converted["_Dropdown3"].Parent = Converted["_Enchants1"]
 Converted["_Dropdown3"].MouseButton1Down:Connect(
-    function()
-        Converted["_Title29"].Rotation = Converted["_Title29"].Rotation + 180
-        for i, v in pairs(Converted["_DropdownMenu3"]:GetChildren()) do
-            if v:IsA("TextButton") then
-                v:Destroy()
-            end
-        end
-        for i, v in pairs(AllEnchants) do
-            local Option = Instance.new("TextButton", Converted["_DropdownMenu3"])
-            Option.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-            Option.BackgroundTransparency = 0.75
-            Option.Size = UDim2.new(1, 0, 0.5, 0)
-            Option.Text = ""
-            Option.Name = "Button"
+	function()
+		Converted["_Title29"].Rotation = Converted["_Title29"].Rotation + 180
+		for i, v in pairs(Converted["_DropdownMenu3"]:GetChildren()) do
+			if v:IsA("TextButton") then
+				v:Destroy()
+			end
+		end
+		for i, v in pairs(AllEnchants) do
+			local Option = Instance.new("TextButton", Converted["_DropdownMenu3"])
+			Option.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			Option.BackgroundTransparency = 0.75
+			Option.Size = UDim2.new(1, 0, 0.5, 0)
+			Option.Text = ""
+			Option.Name = "Button"
 
-            local OptionText = Instance.new("TextLabel", Option)
-            OptionText.Font = Enum.Font.SourceSansBold
-            OptionText.Text = v
-            OptionText.TextScaled = true
-            OptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
-            OptionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            OptionText.TextXAlignment = Enum.TextXAlignment.Left
-            OptionText.BackgroundTransparency = 1
-            OptionText.Position = UDim2.new(0.0271166489, 0, 0, 0)
-            OptionText.Size = UDim2.new(0.972883284, 0, 1, 0)
-            OptionText.Name = "Title"
+			local OptionText = Instance.new("TextLabel", Option)
+			OptionText.Font = Enum.Font.SourceSansBold
+			OptionText.Text = v
+			OptionText.TextScaled = true
+			OptionText.TextColor3 = Color3.fromRGB(255, 255, 255)
+			OptionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			OptionText.TextXAlignment = Enum.TextXAlignment.Left
+			OptionText.BackgroundTransparency = 1
+			OptionText.Position = UDim2.new(0.0271166489, 0, 0, 0)
+			OptionText.Size = UDim2.new(0.972883284, 0, 1, 0)
+			OptionText.Name = "Title"
 
-            Option.MouseButton1Down:Connect(
-                function()
-                    Converted["_Title28"].Text = "Select Pet (" .. OptionText.Text .. ")"
-                    SelectedEnch = OptionText.Text
-                end
-            )
-        end
-        Converted["_DropdownMenu3"].Visible = not Converted["_DropdownMenu3"].Visible
-    end
+			Option.MouseButton1Down:Connect(
+				function()
+					Converted["_Title28"].Text = "Select Enchant (" .. OptionText.Text .. ")"
+					SelectedEnch = OptionText.Text
+				end
+			)
+		end
+		Converted["_DropdownMenu3"].Visible = not Converted["_DropdownMenu3"].Visible
+	end
 )
 
 Converted["_UICorner56"].Parent = Converted["_Dropdown3"]
 
 Converted["_Title28"].Font = Enum.Font.SourceSansBold
-Converted["_Title28"].Text = "Select Pet"
+Converted["_Title28"].Text = "Select Enchant"
 Converted["_Title28"].TextColor3 = Color3.fromRGB(255, 255, 255)
 Converted["_Title28"].TextSize = 14
 Converted["_Title28"].TextXAlignment = Enum.TextXAlignment.Left
@@ -2565,7 +2589,7 @@ Converted["_DropdownMenu3"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_DropdownMenu3"].BackgroundTransparency = 1
 Converted["_DropdownMenu3"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 Converted["_DropdownMenu3"].BorderSizePixel = 0
-Converted["_DropdownMenu3"].LayoutOrder = 1
+Converted["_DropdownMenu3"].LayoutOrder = 5
 Converted["_DropdownMenu3"].Position = UDim2.new(0.0401233621, 0, 0.344189018, 0)
 Converted["_DropdownMenu3"].Size = UDim2.new(0, 301, 0, 100)
 Converted["_DropdownMenu3"].Visible = false
@@ -2655,28 +2679,28 @@ Converted["_Toggle14"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle14"].Name = "Toggle"
 Converted["_Toggle14"].Parent = Converted["_Potions1"]
 Converted["_Toggle14"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoCraftPotions"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame15"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame15"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            for i = 1, 4 do
-                Network:FireServer("CraftPotion", "Coins", i + 1, true)
-                task.wait()
-                Network:FireServer("CraftPotion", "Speed", i + 1, true)
-                task.wait()
-                Network:FireServer("CraftPotion", "Lucky", i + 1, true)
-                task.wait()
-                Network:FireServer("CraftPotion", "Mythic", i + 1, true)
-                task.wait()
-            end
-            task.wait()
-        end
-    end
+	function()
+		local Setting = "AutoCraftPotions"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame15"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame15"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			for i = 1, 4 do
+				Network:FireServer("CraftPotion", "Coins", i + 1, true)
+				task.wait()
+				Network:FireServer("CraftPotion", "Speed", i + 1, true)
+				task.wait()
+				Network:FireServer("CraftPotion", "Lucky", i + 1, true)
+				task.wait()
+				Network:FireServer("CraftPotion", "Mythic", i + 1, true)
+				task.wait()
+			end
+			task.wait()
+		end
+	end
 )
 
 Converted["_UICorner60"].Parent = Converted["_Toggle14"]
@@ -2749,24 +2773,24 @@ Converted["_Toggle15"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle15"].Name = "Toggle"
 Converted["_Toggle15"].Parent = Converted["_Shops1"]
 Converted["_Toggle15"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoAlienShop"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame16"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame16"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            for i = 1, 3 do
-                for _ = 1, 15 do
-                    Network:FireServer("BuyShopItem", "alien-shop", i)
-                    task.wait(1)
-                end
-            end
-            task.wait(60)
-        end
-    end
+	function()
+		local Setting = "AutoAlienShop"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame16"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame16"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			for i = 1, 3 do
+				for _ = 1, 15 do
+					Network:FireServer("BuyShopItem", "alien-shop", i)
+					task.wait(1)
+				end
+			end
+			task.wait(60)
+		end
+	end
 )
 
 Converted["_UICorner62"].Parent = Converted["_Toggle15"]
@@ -2809,24 +2833,24 @@ Converted["_Toggle16"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle16"].Name = "Toggle"
 Converted["_Toggle16"].Parent = Converted["_Shops1"]
 Converted["_Toggle16"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoBlackmarket"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame17"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame17"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            for i = 1, 3 do
-                for _ = 1, 15 do
-                    Network:FireServer("BuyShopItem", "shard-shop", i)
-                    task.wait(1)
-                end
-            end
-            task.wait(60)
-        end
-    end
+	function()
+		local Setting = "AutoBlackmarket"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame17"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame17"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			for i = 1, 3 do
+				for _ = 1, 15 do
+					Network:FireServer("BuyShopItem", "shard-shop", i)
+					task.wait(1)
+				end
+			end
+			task.wait(60)
+		end
+	end
 )
 
 Converted["_UICorner64"].Parent = Converted["_Toggle16"]
@@ -2900,19 +2924,19 @@ Converted["_Toggle17"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle17"].Name = "Toggle"
 Converted["_Toggle17"].Parent = Converted["_Misc1"]
 Converted["_Toggle17"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoEquipBest"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame18"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame18"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            Network:FireServer("EquipBestPets")
-            task.wait(1)
-        end
-    end
+	function()
+		local Setting = "AutoEquipBest"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame18"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame18"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			Network:FireServer("EquipBestPets")
+			task.wait(1)
+		end
+	end
 )
 
 Converted["_UICorner66"].Parent = Converted["_Toggle17"]
@@ -2955,11 +2979,11 @@ Converted["_Button7"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Button7"].Name = "Button"
 Converted["_Button7"].Parent = Converted["_Misc1"]
 Converted["_Button7"].MouseButton1Down:Connect(
-    function()
-        for i, v in pairs(_G.AllCodes) do
-            Network:InvokeServer("RedeemCode", i)
-        end
-    end
+	function()
+		for i, v in pairs(_G.AllCodes) do
+			Network:InvokeServer("RedeemCode", i)
+		end
+	end
 )
 
 Converted["_UICorner68"].Parent = Converted["_Button7"]
@@ -2993,19 +3017,19 @@ Converted["_Toggle18"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle18"].Name = "Toggle"
 Converted["_Toggle18"].Parent = Converted["_Misc1"]
 Converted["_Toggle18"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoGemGenie"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame19"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame19"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            Network:FireServer("StartGenieQuest", math.random(1, 3))
-            task.wait(60)
-        end
-    end
+	function()
+		local Setting = "AutoGemGenie"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame19"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame19"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			Network:FireServer("StartGenieQuest", math.random(1, 3))
+			task.wait(60)
+		end
+	end
 )
 
 Converted["_UICorner69"].Parent = Converted["_Toggle18"]
@@ -3048,21 +3072,21 @@ Converted["_Toggle19"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Toggle19"].Name = "Toggle"
 Converted["_Toggle19"].Parent = Converted["_Misc1"]
 Converted["_Toggle19"].MouseButton1Down:Connect(
-    function()
-        local Setting = "AutoMastery"
-        _G.Settings[Setting] = not _G.Settings[Setting]
-        if _G.Settings[Setting] then
-            Converted["_Frame20"].BackgroundColor3 = Color3.new(0, 255, 0)
-        else
-            Converted["_Frame20"].BackgroundColor3 = Color3.new(255, 0, 0)
-        end
-        while _G.Settings[Setting] do
-            for i, UpgradeType in pairs(_G.MasteryModule.Upgrades) do
-                Network:FireServer("UpgradeMastery", i)
-            end
-            task.wait(15)
-        end
-    end
+	function()
+		local Setting = "AutoMastery"
+		_G.Settings[Setting] = not _G.Settings[Setting]
+		if _G.Settings[Setting] then
+			Converted["_Frame20"].BackgroundColor3 = Color3.new(0, 255, 0)
+		else
+			Converted["_Frame20"].BackgroundColor3 = Color3.new(255, 0, 0)
+		end
+		while _G.Settings[Setting] do
+			for i, UpgradeType in pairs(_G.MasteryModule.Upgrades) do
+				Network:FireServer("UpgradeMastery", i)
+			end
+			task.wait(15)
+		end
+	end
 )
 
 Converted["_UICorner71"].Parent = Converted["_Toggle19"]
@@ -3105,16 +3129,16 @@ Converted["_Button8"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Button8"].Name = "Button"
 Converted["_Button8"].Parent = Converted["_Misc1"]
 Converted["_Button8"].MouseButton1Down:Connect(
-    function()
-        local Worlds = _G.Worlds
-        local CurrentWorld = Worlds[Plr:GetAttribute("World")]
-        local LastWorld =
-            workspace.Worlds:FindFirstChild(Plr:GetAttribute("World")).Islands:FindFirstChild(
-            CurrentWorld.Islands[#CurrentWorld.Islands].Name
-        ).Island.UnlockHitbox
+	function()
+		local Worlds = _G.Worlds
+		local CurrentWorld = Worlds[Plr:GetAttribute("World")]
+		local LastWorld =
+			workspace.Worlds:FindFirstChild(Plr:GetAttribute("World")).Islands:FindFirstChild(
+				CurrentWorld.Islands[#CurrentWorld.Islands].Name
+			).Island.UnlockHitbox
 
-        Tween(LastWorld)
-    end
+		Tween(LastWorld)
+	end
 )
 
 Converted["_UICorner73"].Parent = Converted["_Button8"]
@@ -3148,13 +3172,15 @@ Converted["_Button9"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
 Converted["_Button9"].Name = "Button"
 Converted["_Button9"].Parent = Converted["_Misc1"]
 Converted["_Button9"].MouseButton1Down:Connect(function()
-    assert(firesignal, "Your exploit does not support firesignal.")
-    local UserInputService = game:GetService("UserInputService")
-    local RunService = game:GetService("RunService")
-    UserInputService.WindowFocusReleased:Connect(function()
-        RunService.Stepped:Wait()
-        pcall(firesignal, UserInputService.WindowFocused)
-    end)    
+	assert(firesignal, "Your exploit does not support firesignal.")
+	local UserInputService = game:GetService("UserInputService")
+	local RunService = game:GetService("RunService")
+	UserInputService.WindowFocusReleased:Connect(
+		function()
+			RunService.Stepped:Wait()
+			pcall(firesignal, UserInputService.WindowFocused)
+		end
+	)
 end)
 
 Converted["_UICorner74"].Parent = Converted["_Button9"]
@@ -3173,6 +3199,100 @@ Converted["_Title39"].Size = UDim2.new(0.972883284, 0, 1, 0)
 Converted["_Title39"].Name = "Title"
 Converted["_Title39"].Parent = Converted["_Button9"]
 
+Converted["_Premium1"].AutomaticCanvasSize = Enum.AutomaticSize.Y
+Converted["_Premium1"].CanvasSize = UDim2.new(0, 0, 0, 0)
+Converted["_Premium1"].ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Premium1"].ScrollBarThickness = 0
+Converted["_Premium1"].Active = true
+Converted["_Premium1"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Premium1"].BackgroundTransparency = 8.899999618530273
+Converted["_Premium1"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Premium1"].BorderSizePixel = 0
+Converted["_Premium1"].Size = UDim2.new(1, 0, 1, 0)
+Converted["_Premium1"].Name = "Premium"
+Converted["_Premium1"].Visible = false
+Converted["_Premium1"].Parent = Converted["_Frames"]
+
+Converted["_Filler12"].BackgroundColor3 = Color3.fromRGB(25.000002309679985, 25.000002309679985, 25.000002309679985)
+Converted["_Filler12"].BackgroundTransparency = 1
+Converted["_Filler12"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Filler12"].BorderSizePixel = 0
+Converted["_Filler12"].LayoutOrder = -1
+Converted["_Filler12"].Position = UDim2.new(-3.02704711e-06, 0, 0.0948298797, 0)
+Converted["_Filler12"].Size = UDim2.new(1.0000031, 0, 0.0174531769, 0)
+Converted["_Filler12"].Name = "Filler"
+Converted["_Filler12"].Parent = Converted["_Premium1"]
+
+Converted["_UIListLayout14"].ItemLineAlignment = Enum.ItemLineAlignment.Center
+Converted["_UIListLayout14"].Padding = UDim.new(0.00999999978, 0)
+Converted["_UIListLayout14"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+Converted["_UIListLayout14"].SortOrder = Enum.SortOrder.LayoutOrder
+Converted["_UIListLayout14"].Parent = Converted["_Premium1"]
+
+Converted["_Toggle20"].Font = Enum.Font.SourceSans
+Converted["_Toggle20"].Text = ""
+Converted["_Toggle20"].TextColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Toggle20"].TextSize = 14
+Converted["_Toggle20"].AutoButtonColor = false
+Converted["_Toggle20"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Toggle20"].BackgroundTransparency = 0.75
+Converted["_Toggle20"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Toggle20"].BorderSizePixel = 0
+Converted["_Toggle20"].LayoutOrder = 3
+Converted["_Toggle20"].Position = UDim2.new(0.231481478, 0, 0, 0)
+Converted["_Toggle20"].Size = UDim2.new(0.920000017, 0, 0.200000003, 0)
+Converted["_Toggle20"].Name = "Toggle"
+Converted["_Toggle20"].Parent = Converted["_Premium1"]
+Converted["_Toggle20"].MouseButton1Down:Connect(function()
+	local Setting = "AutoSeasonQuests"
+	_G.Settings[Setting] = not _G.Settings[Setting]
+	if _G.Settings[Setting] then
+		Converted["_Frame21"].BackgroundColor3 = Color3.new(0, 255, 0)
+	else
+		Converted["_Frame21"].BackgroundColor3 = Color3.new(255, 0, 0)
+	end
+	while _G.Settings[Setting] do
+		Network:FireServer("HatchEgg", "Infinity Egg", 6)
+		Network:FireServer("BlowBubble")
+		for i, Folder in workspace.Rendered:GetChildren() do
+			if Folder.Name == "Chunker" then
+				for i, v in Folder:GetChildren() do
+					if v:IsA("Model") and not v.Name:lower():find("egg") then
+						RS.Remotes.Pickups.CollectPickup:FireServer(v.Name)
+						v:Destroy()
+					end
+				end
+			end
+		end
+		task.wait()
+	end
+end)
+
+Converted["_UICorner76"].Parent = Converted["_Toggle20"]
+
+Converted["_Title40"].Font = Enum.Font.SourceSansBold
+Converted["_Title40"].Text = "Auto Season Quests (REQUIRES INF BUBBLES)"
+Converted["_Title40"].TextColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Title40"].TextSize = 14
+Converted["_Title40"].TextXAlignment = Enum.TextXAlignment.Left
+Converted["_Title40"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Converted["_Title40"].BackgroundTransparency = 1
+Converted["_Title40"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Title40"].BorderSizePixel = 0
+Converted["_Title40"].Position = UDim2.new(0.0271166489, 0, 0, 0)
+Converted["_Title40"].Size = UDim2.new(0.972883284, 0, 1, 0)
+Converted["_Title40"].Name = "Title"
+Converted["_Title40"].Parent = Converted["_Toggle20"]
+
+Converted["_Frame21"].BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Converted["_Frame21"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+Converted["_Frame21"].BorderSizePixel = 0
+Converted["_Frame21"].Position = UDim2.new(0.876373172, 0, 0.220000312, 0)
+Converted["_Frame21"].Size = UDim2.new(0.0852458999, 0, 0.519999981, 0)
+Converted["_Frame21"].Parent = Converted["_Toggle20"]
+
+Converted["_UICorner77"].Parent = Converted["_Frame21"]
+
 local UserInputService = game:GetService("UserInputService")
 
 local gui = Converted["_MainFrame"]
@@ -3183,41 +3303,47 @@ local dragStart
 local startPos
 
 local function update(input)
-    local delta = input.Position - dragStart
-    gui.Position =
-        UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	local delta = input.Position - dragStart
+	gui.Position =
+		UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
 end
 
 gui:FindFirstChild("Top").InputBegan:Connect(
-    function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = gui.Position
+	function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
 
-            input.Changed:Connect(
-                function()
-                    if input.UserInputState == Enum.UserInputState.End then
-                        dragging = false
-                    end
-                end
-            )
-        end
-    end
+			input.Changed:Connect(
+				function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end
+			)
+		end
+	end
 )
 
 gui:FindFirstChild("Top").InputChanged:Connect(
-    function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-            dragInput = input
-        end
-    end
+	function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end
 )
 
 UserInputService.InputChanged:Connect(
-    function(input)
-        if input == dragInput and dragging then
-            update(input)
-        end
-    end
+	function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end
 )
+
+UserInputService.InputBegan:Connect(function(Input)
+	if Input.KeyCode == Enum.KeyCode.LeftControl then
+		Converted["_MainFrame"].Visible = not Converted["_MainFrame"].Visible 
+	end
+end)
