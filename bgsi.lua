@@ -2188,7 +2188,9 @@ Converted["_Toggle13"].MouseButton1Down:Connect(
             local Id = SelectedPet:split(" - ")[2]
             for i, Pet in pairs(DataModule:Get().Pets) do
                 if Pet.Id == Id then
-                    if #Pet.Enchants == 0 then
+                    if Pet.Enchants == nil then
+                        Network:InvokeServer("RerollEnchants", Pet.Id)
+                    elseif #Pet.Enchants == 0 then
                         Network:InvokeServer("RerollEnchants", Pet.Id)
                     end
                     local hasEnchant = false
@@ -2197,7 +2199,7 @@ Converted["_Toggle13"].MouseButton1Down:Connect(
                             hasEnchant = true
                         end
                     end
-                    if not hasEnchant then
+                    if hasEnchant == false then
                         Network:InvokeServer("RerollEnchants", Pet.Id)
                     end
                 end
